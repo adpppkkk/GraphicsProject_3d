@@ -1,0 +1,1 @@
+g++ -w -framework OpenGL -framework GLUT main.cpp
