@@ -34,7 +34,7 @@ void display() {
  
    // Render a color-cube consisting of 6 quads with different colors
    glLoadIdentity();                 // Reset the model-view matrix
-   glTranslatef(0.0f, 0.0f, -8.0f);  // Move right and into the screen
+   glTranslatef(1.5f, 0.0f, -8.0f);  // Move right and into the screen
  
    glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
       // Top face (y = 1.0f)
@@ -81,43 +81,43 @@ void display() {
       glVertex3f(1.0f, -1.0f, -1.0f);
    glEnd();  // End of drawing color-cube
  
-   // Render a pyramid consists of 4 triangles
-   //glLoadIdentity();                  // Reset the model-view matrix
-   //glTranslatef(-1.5f, 0.0f, -6.0f);  // Move left and into the screen
+    //Render a pyramid consists of 4 triangles
+   glLoadIdentity();                  // Reset the model-view matrix
+   glTranslatef(-1.5f, 0.0f, -6.0f);  // Move left and into the screen
  
-//   glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
-//      // Front
-//      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-//      glVertex3f( 0.0f, 1.0f, 0.0f);
-//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-//      glVertex3f(-1.0f, -1.0f, 1.0f);
-//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-//      glVertex3f(1.0f, -1.0f, 1.0f);
-//
-//      // Right
-//      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-//      glVertex3f(0.0f, 1.0f, 0.0f);
-//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-//      glVertex3f(1.0f, -1.0f, 1.0f);
-//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-//      glVertex3f(1.0f, -1.0f, -1.0f);
-//
-//      // Back
-//      //glColor3f(1.0f, 0.0f, 0.0f);     // Red
-//      glVertex3f(0.0f, 1.0f, 0.0f);
-//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-//      glVertex3f(1.0f, -1.0f, -1.0f);
-//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-//      glVertex3f(-1.0f, -1.0f, -1.0f);
-//
-//      // Left
-//      //glColor3f(1.0f,0.0f,0.0f);       // Red
-//      glVertex3f( 0.0f, 1.0f, 0.0f);
-//      glColor3f(0.0f,0.0f,1.0f);       // Blue
-//      glVertex3f(-1.0f,-1.0f,-1.0f);
-//      glColor3f(0.0f,1.0f,0.0f);       // Green
-//      glVertex3f(-1.0f,-1.0f, 1.0f);
-//   glEnd();   // Done drawing the pyramid
+   glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+      // Front
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(1.0f, -1.0f, 1.0f);
+
+      // Right
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f(0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(1.0f, -1.0f, 1.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(1.0f, -1.0f, -1.0f);
+
+      // Back
+      //glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f(0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(1.0f, -1.0f, -1.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-1.0f, -1.0f, -1.0f);
+
+      // Left
+      //glColor3f(1.0f,0.0f,0.0f);       // Red
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f,0.0f,1.0f);       // Blue
+      glVertex3f(-1.0f,-1.0f,-1.0f);
+      glColor3f(0.0f,1.0f,0.0f);       // Green
+      glVertex3f(-1.0f,-1.0f, 1.0f);
+   glEnd();   // Done drawing the pyramid
  
    glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
