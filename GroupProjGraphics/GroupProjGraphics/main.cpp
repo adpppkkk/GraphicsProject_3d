@@ -13,163 +13,142 @@
 using namespace std;
 
 //<<<<<<<<<<<<<<<<<<<<<<< myInit >>>>>>>>>>>>>>>>>>>>
-void myInit(void)
-{
-   glClearColor(0, 0, 0, 0.0);      // set the bg color to a bright white
-   glColor3f(255, 255, 255);           // set the drawing color to black
-   glPointSize(8.0);                    //set the point size to 4 by 4 pixels
-   glMatrixMode(GL_PROJECTION);// set up appropriate matrices- to be explained
-   glLoadIdentity();// to be explained
-   gluOrtho2D(0.0, 800.0, 0.0, 600.0);// to be explained
+/* Global variables */
+char title[] = "3D Shapes";
+ 
+/* Initialize OpenGL Graphics */
+void initGL() {
+   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
+   glClearDepth(1.0f);                   // Set background depth to farthest
+   glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
+   glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
+   glShadeModel(GL_SMOOTH);   // Enable smooth shading
+   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Nice perspective corrections
 }
-
-
-double **MatrixMulti(double M1[][3],int r1,int c1,double M2[][1],int r2,int c2)
-{
-   double **result = new double*[r1];
-   for(int i=0;i<r1;i++)
-   {
-       result[i] = new double[c2];
-   }
-
-   for(int i=0;i<r1;i++)
-   {
-       for (int j=0;j<c2;j++)
-           result[i][j]=0;
-   }
-
-   for(int i=0;i<r1;i++)
-   {
-       for (int j=0;j<c2;j++)
-       {
-           double temp = 0;
-           for(int k=0;k<c1;k++)
-           {
-               temp += M1[i][k] * M2[k][j];
-           }
-           result[i][j] = temp;
-       }
-   }
-   return result;
+ 
+/* Handler for window-repaint event. Called back when the window first appears and
+   whenever the window needs to be re-painted. */
+void display() {
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
+   glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
+ 
+   // Render a color-cube consisting of 6 quads with different colors
+   glLoadIdentity();                 // Reset the model-view matrix
+   glTranslatef(0.0f, 0.0f, -8.0f);  // Move right and into the screen
+ 
+   glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
+      // Top face (y = 1.0f)
+      // Define vertices in counter-clockwise (CCW) order with normal pointing out
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f( 1.0f, 1.0f, -1.0f);
+      glVertex3f(-1.0f, 1.0f, -1.0f);
+      glVertex3f(-1.0f, 1.0f,  1.0f);
+      glVertex3f( 1.0f, 1.0f,  1.0f);
+ 
+      // Bottom face (y = -1.0f)
+      glColor3f(1.0f, 0.5f, 0.0f);     // Orange
+      glVertex3f( 1.0f, -1.0f,  1.0f);
+      glVertex3f(-1.0f, -1.0f,  1.0f);
+      glVertex3f(-1.0f, -1.0f, -1.0f);
+      glVertex3f( 1.0f, -1.0f, -1.0f);
+ 
+      // Front face  (z = 1.0f)
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f( 1.0f,  1.0f, 1.0f);
+      glVertex3f(-1.0f,  1.0f, 1.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+      glVertex3f( 1.0f, -1.0f, 1.0f);
+ 
+      // Back face (z = -1.0f)
+      glColor3f(1.0f, 1.0f, 0.0f);     // Yellow
+      glVertex3f( 1.0f, -1.0f, -1.0f);
+      glVertex3f(-1.0f, -1.0f, -1.0f);
+      glVertex3f(-1.0f,  1.0f, -1.0f);
+      glVertex3f( 1.0f,  1.0f, -1.0f);
+ 
+      // Left face (x = -1.0f)
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-1.0f,  1.0f,  1.0f);
+      glVertex3f(-1.0f,  1.0f, -1.0f);
+      glVertex3f(-1.0f, -1.0f, -1.0f);
+      glVertex3f(-1.0f, -1.0f,  1.0f);
+ 
+      // Right face (x = 1.0f)
+      glColor3f(1.0f, 0.0f, 1.0f);     // Magenta
+      glVertex3f(1.0f,  1.0f, -1.0f);
+      glVertex3f(1.0f,  1.0f,  1.0f);
+      glVertex3f(1.0f, -1.0f,  1.0f);
+      glVertex3f(1.0f, -1.0f, -1.0f);
+   glEnd();  // End of drawing color-cube
+ 
+   // Render a pyramid consists of 4 triangles
+   //glLoadIdentity();                  // Reset the model-view matrix
+   //glTranslatef(-1.5f, 0.0f, -6.0f);  // Move left and into the screen
+ 
+//   glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+//      // Front
+//      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+//      glVertex3f( 0.0f, 1.0f, 0.0f);
+//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+//      glVertex3f(-1.0f, -1.0f, 1.0f);
+//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+//      glVertex3f(1.0f, -1.0f, 1.0f);
+//
+//      // Right
+//      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+//      glVertex3f(0.0f, 1.0f, 0.0f);
+//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+//      glVertex3f(1.0f, -1.0f, 1.0f);
+//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+//      glVertex3f(1.0f, -1.0f, -1.0f);
+//
+//      // Back
+//      //glColor3f(1.0f, 0.0f, 0.0f);     // Red
+//      glVertex3f(0.0f, 1.0f, 0.0f);
+//      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+//      glVertex3f(1.0f, -1.0f, -1.0f);
+//      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+//      glVertex3f(-1.0f, -1.0f, -1.0f);
+//
+//      // Left
+//      //glColor3f(1.0f,0.0f,0.0f);       // Red
+//      glVertex3f( 0.0f, 1.0f, 0.0f);
+//      glColor3f(0.0f,0.0f,1.0f);       // Blue
+//      glVertex3f(-1.0f,-1.0f,-1.0f);
+//      glColor3f(0.0f,1.0f,0.0f);       // Green
+//      glVertex3f(-1.0f,-1.0f, 1.0f);
+//   glEnd();   // Done drawing the pyramid
+ 
+   glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
-
-//<<<<<<<<<<<<<<<<<<<<<<<< myDisplay >>>>>>>>>>>>>>>>>
-// the redraw function
-void myDisplay(void)
-{
-   glClear(GL_COLOR_BUFFER_BIT);     // clear the screen
-   
-   //triangle
-   glBegin(GL_LINE_STRIP); // draw an open polyline
-       glVertex2i(100, 250);
-       glVertex2i(200, 250);
-       glVertex2i(150, 350);
-       glVertex2i(100, 250);
-   glEnd();
-   //triangle point
-   double tripoint[6]={100,250 ,200,250 ,150,350};
-
-   //scaling
-   glColor3f(0,255,0);
-   double tripointscale[6] = {0,0,0,0,0,0}; // placeholder of the final points
-   double scaleMatrix[3][3] = {
-           {0.5,0,0},
-           {0,0.5,0},                   //scaling matrix
-           {0,0,1}
-       };
-   for(int i=0;i<3;i++)
-   {
-       double temp_point[3][1] = {tripoint[i*2],tripoint[i*2+1],1};
-       
-       double **result = MatrixMulti(scaleMatrix,3,3,temp_point,3,1);
-       tripointscale[2*i]=result[0][0];
-       tripointscale[2*i+1]=result[1][0];
-   }
-
-   glBegin(GL_LINE_STRIP); // draw an open polyline
-       for(int i=0;i<3;i++)
-           glVertex2i(tripointscale[i*2],tripointscale[2*i+1]);
-       glVertex2i(tripointscale[0],tripointscale[1]);
-   glEnd();
-
-   //translation
-   glColor3f(255,0,0);
-   double tripointtrans[6] = {0,0,0,0,0,0};
-   double transMatrix[3][3] = {
-           {1,0,80},
-           {0,1,80},
-           {0,0,1}
-       };
-   for(int i=0;i<3;i++)
-   {
-       double temp_point[3][1] = {tripoint[i*2],tripoint[i*2+1],1};
-       
-       double **result = MatrixMulti(transMatrix,3,3,temp_point,3,1);
-       tripointtrans[2*i]=result[0][0];
-       tripointtrans[2*i+1]=result[1][0];
-   }
-   glBegin(GL_LINE_STRIP); // draw an open polyline
-       for(int i=0;i<3;i++)
-           glVertex2i(tripointtrans[i*2],tripointtrans[2*i+1]);
-       glVertex2i(tripointtrans[0],tripointtrans[1]);
-   glEnd();
-
-   //rotation
-   glColor3f(0,0,255);
-   double tripointrotation[6] = {0,0,0,0,0,0};
-   double rotationMatrix[3][3] = {
-           {0.96592,-0.25881,0},
-           {0.25881,0.96592,0},
-           {0,0,1}
-       };
-   for(int i=0;i<3;i++)
-   {
-       double temp_point[3][1] = {tripoint[i*2],tripoint[i*2+1],1};
-       
-       double **result = MatrixMulti(rotationMatrix,3,3,temp_point,3,1);
-       tripointrotation[2*i]=result[0][0];
-       tripointrotation[2*i+1]=result[1][0];
-   }
-
-   glBegin(GL_LINE_STRIP); // draw an open polyline
-       for(int i=0;i<3;i++)
-           glVertex2i(tripointrotation[i*2],tripointrotation[2*i+1]);
-       glVertex2i(tripointrotation[0],tripointrotation[1]);
-   glEnd();
-   // //square
-   // glBegin(GL_LINE_STRIP); // draw an open polyline
-   //     glVertex2i(300, 250);
-   //     glVertex2i(400, 250);
-   //     glVertex2i(400, 350);
-   //     glVertex2i(300, 350);
-   //     glVertex2i(300, 250);
-   // glEnd();
-
-   // //pentagon
-   // glBegin(GL_LINE_STRIP); // draw an open polyline
-   //     glVertex2i(500, 250);
-   //     glVertex2i(575, 250);
-   //     glVertex2i(600, 300);
-   //     glVertex2i(537, 345);
-   //     glVertex2i(475, 300);
-   //     glVertex2i(500, 250);
-   // glEnd();
-   
-
-
-   glFlush();                         // send all output to display
+ 
+/* Handler for window re-size event. Called back when the window first appears and
+   whenever the window is re-sized with its new width and height */
+void reshape(GLsizei width, GLsizei height) {  // GLsizei for non-negative integer
+   // Compute aspect ratio of the new window
+   if (height == 0) height = 1;                // To prevent divide by 0
+   GLfloat aspect = (GLfloat)width / (GLfloat)height;
+ 
+   // Set the viewport to cover the new window
+   glViewport(0, 0, width, height);
+ 
+   // Set the aspect ratio of the clipping volume to match the viewport
+   glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
+   glLoadIdentity();             // Reset
+   // Enable perspective projection with fovy, aspect, zNear and zFar
+   gluPerspective(45.0f, aspect, 0.1f, 100.0f);
 }
-//<<<<<<<<<<<<<<<<<<<<<<<< main >>>>>>>>>>>>>>>>>>>>>>
-int main(int argc, char **argv)
-{
-   glutInit(&argc, argv);          // initialize the toolkit
-   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); // set the display mode
-   glutInitWindowSize(800,600);     // set the window size
-   glutInitWindowPosition(100, 150); // set the window position on the screen
-   glutCreateWindow("2D Rotation"); // open the screen window(with its exciting title)
-   glutDisplayFunc(myDisplay);     // register the redraw function
-   myInit();
-   glutMainLoop();              // go into a perpetual loop
-   
+ 
+/* Main function: GLUT runs as a console application starting at main() */
+int main(int argc, char** argv) {
+   glutInit(&argc, argv);            // Initialize GLUT
+   glutInitDisplayMode(GLUT_DOUBLE); // Enable double buffered mode
+   glutInitWindowSize(640, 480);   // Set the window's initial width & height
+   glutInitWindowPosition(50, 50); // Position the window's initial top-left corner
+   glutCreateWindow(title);          // Create window with the given title
+   glutDisplayFunc(display);       // Register callback handler for window re-paint event
+   glutReshapeFunc(reshape);       // Register callback handler for window re-size event
+   initGL();                       // Our own OpenGL initialization
+   glutMainLoop();                 // Enter the infinite event-processing loop
    return 0;
 }
