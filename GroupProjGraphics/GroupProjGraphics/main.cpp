@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <math.h>
+#define PI 3.14159265
 using namespace std;
 
 //<<<<<<<<<<<<<<<<<<<<<<< myInit >>>>>>>>>>>>>>>>>>>>
@@ -185,6 +188,176 @@ void Translation(CubeTransform & c,double x,double y,double z)
     c.rightP4 = MatrixMulti(transformMatrix, 4, 4, c.rightP4, 4);
     
 }
+
+
+void Scaling(CubeTransform & c,double x,double y,double z)
+{
+    double scalingMatrix[4][4]={
+        {x,0,0,0},
+        {0,y,0,0},              // scaling by x,y,z
+        {0,0,z,0},
+        {0,0,0,1}
+    };
+    
+    c.topP1 = MatrixMulti(scalingMatrix,4,4,c.topP1,4);
+    c.topP2 = MatrixMulti(scalingMatrix,4,4,c.topP2,4);
+    c.topP3 = MatrixMulti(scalingMatrix,4,4,c.topP3,4);
+    c.topP4 = MatrixMulti(scalingMatrix,4,4,c.topP4,4);
+    
+    c.bottomP1 = MatrixMulti(scalingMatrix, 4, 4, c.bottomP1, 4);
+    c.bottomP2 = MatrixMulti(scalingMatrix, 4, 4, c.bottomP2, 4);
+    c.bottomP3 = MatrixMulti(scalingMatrix, 4, 4, c.bottomP3, 4);
+    c.bottomP4 = MatrixMulti(scalingMatrix, 4, 4, c.bottomP4, 4);
+    
+    c.frontP1 = MatrixMulti(scalingMatrix, 4, 4, c.frontP1, 4);
+    c.frontP2 = MatrixMulti(scalingMatrix, 4, 4, c.frontP2, 4);
+    c.frontP3 = MatrixMulti(scalingMatrix, 4, 4, c.frontP3, 4);
+    c.frontP4 = MatrixMulti(scalingMatrix, 4, 4, c.frontP4, 4);
+    
+    c.backP1 = MatrixMulti(scalingMatrix, 4, 4, c.backP1, 4);
+    c.backP2 = MatrixMulti(scalingMatrix, 4, 4, c.backP2, 4);
+    c.backP3 = MatrixMulti(scalingMatrix, 4, 4, c.backP3, 4);
+    c.backP4 = MatrixMulti(scalingMatrix, 4, 4, c.backP4, 4);
+    
+    c.leftP1 = MatrixMulti(scalingMatrix, 4, 4, c.leftP1, 4);
+    c.leftP2 = MatrixMulti(scalingMatrix, 4, 4, c.leftP2, 4);
+    c.leftP3 = MatrixMulti(scalingMatrix, 4, 4, c.leftP3, 4);
+    c.leftP4 = MatrixMulti(scalingMatrix, 4, 4, c.leftP4, 4);
+    
+    c.rightP1 = MatrixMulti(scalingMatrix, 4, 4, c.rightP1, 4);
+    c.rightP2 = MatrixMulti(scalingMatrix, 4, 4, c.rightP2, 4);
+    c.rightP3 = MatrixMulti(scalingMatrix, 4, 4, c.rightP3, 4);
+    c.rightP4 = MatrixMulti(scalingMatrix, 4, 4, c.rightP4, 4);
+}
+
+
+
+void Rotation(CubeTransform & c,int axis,double angle)
+{
+    double r = angle*PI/180;
+    
+    double rotationMatrixX[4][4]={
+        {1,0,0,0},
+        {0,cos(r),-sin(r),0},              // rotate by x axis
+        {0,sin(r),cos(r),0},
+        {0,0,0,1}
+    };
+    
+    double rotationMatrixY[4][4]={
+        {cos(r),0,sin(r),0},
+        {0,1,0,0},                         // rotate by x axis
+        {-sin(r),0,cos(r),0},
+        {0,0,0,1}
+    };
+    
+    double rotationMatrixZ[4][4]={
+        {cos(r),-sin(r),0,0},
+        {sin(r),cos(r),0,0},                         // rotate by z axis
+        {0,0,1,0},
+        {0,0,0,1}
+    };
+    
+    if (axis != 0)
+    {
+        if (axis==1)
+        {
+            c.topP1 = MatrixMulti(rotationMatrixX,4,4,c.topP1,4);
+            c.topP2 = MatrixMulti(rotationMatrixX,4,4,c.topP2,4);
+            c.topP3 = MatrixMulti(rotationMatrixX,4,4,c.topP3,4);
+            c.topP4 = MatrixMulti(rotationMatrixX,4,4,c.topP4,4);
+            
+            c.bottomP1 = MatrixMulti(rotationMatrixX, 4, 4, c.bottomP1, 4);
+            c.bottomP2 = MatrixMulti(rotationMatrixX, 4, 4, c.bottomP2, 4);
+            c.bottomP3 = MatrixMulti(rotationMatrixX, 4, 4, c.bottomP3, 4);
+            c.bottomP4 = MatrixMulti(rotationMatrixX, 4, 4, c.bottomP4, 4);
+            
+            c.frontP1 = MatrixMulti(rotationMatrixX, 4, 4, c.frontP1, 4);
+            c.frontP2 = MatrixMulti(rotationMatrixX, 4, 4, c.frontP2, 4);
+            c.frontP3 = MatrixMulti(rotationMatrixX, 4, 4, c.frontP3, 4);
+            c.frontP4 = MatrixMulti(rotationMatrixX, 4, 4, c.frontP4, 4);
+            
+            c.backP1 = MatrixMulti(rotationMatrixX, 4, 4, c.backP1, 4);
+            c.backP2 = MatrixMulti(rotationMatrixX, 4, 4, c.backP2, 4);
+            c.backP3 = MatrixMulti(rotationMatrixX, 4, 4, c.backP3, 4);
+            c.backP4 = MatrixMulti(rotationMatrixX, 4, 4, c.backP4, 4);
+            
+            c.leftP1 = MatrixMulti(rotationMatrixX, 4, 4, c.leftP1, 4);
+            c.leftP2 = MatrixMulti(rotationMatrixX, 4, 4, c.leftP2, 4);
+            c.leftP3 = MatrixMulti(rotationMatrixX, 4, 4, c.leftP3, 4);
+            c.leftP4 = MatrixMulti(rotationMatrixX, 4, 4, c.leftP4, 4);
+            
+            c.rightP1 = MatrixMulti(rotationMatrixX, 4, 4, c.rightP1, 4);
+            c.rightP2 = MatrixMulti(rotationMatrixX, 4, 4, c.rightP2, 4);
+            c.rightP3 = MatrixMulti(rotationMatrixX, 4, 4, c.rightP3, 4);
+            c.rightP4 = MatrixMulti(rotationMatrixX, 4, 4, c.rightP4, 4);
+        }
+        if (axis==2)
+        {
+            c.topP1 = MatrixMulti(rotationMatrixY,4,4,c.topP1,4);
+            c.topP2 = MatrixMulti(rotationMatrixY,4,4,c.topP2,4);
+            c.topP3 = MatrixMulti(rotationMatrixY,4,4,c.topP3,4);
+            c.topP4 = MatrixMulti(rotationMatrixY,4,4,c.topP4,4);
+            
+            c.bottomP1 = MatrixMulti(rotationMatrixY, 4, 4, c.bottomP1, 4);
+            c.bottomP2 = MatrixMulti(rotationMatrixY, 4, 4, c.bottomP2, 4);
+            c.bottomP3 = MatrixMulti(rotationMatrixY, 4, 4, c.bottomP3, 4);
+            c.bottomP4 = MatrixMulti(rotationMatrixY, 4, 4, c.bottomP4, 4);
+            
+            c.frontP1 = MatrixMulti(rotationMatrixY, 4, 4, c.frontP1, 4);
+            c.frontP2 = MatrixMulti(rotationMatrixY, 4, 4, c.frontP2, 4);
+            c.frontP3 = MatrixMulti(rotationMatrixY, 4, 4, c.frontP3, 4);
+            c.frontP4 = MatrixMulti(rotationMatrixY, 4, 4, c.frontP4, 4);
+            
+            c.backP1 = MatrixMulti(rotationMatrixY, 4, 4, c.backP1, 4);
+            c.backP2 = MatrixMulti(rotationMatrixY, 4, 4, c.backP2, 4);
+            c.backP3 = MatrixMulti(rotationMatrixY, 4, 4, c.backP3, 4);
+            c.backP4 = MatrixMulti(rotationMatrixY, 4, 4, c.backP4, 4);
+            
+            c.leftP1 = MatrixMulti(rotationMatrixY, 4, 4, c.leftP1, 4);
+            c.leftP2 = MatrixMulti(rotationMatrixY, 4, 4, c.leftP2, 4);
+            c.leftP3 = MatrixMulti(rotationMatrixY, 4, 4, c.leftP3, 4);
+            c.leftP4 = MatrixMulti(rotationMatrixY, 4, 4, c.leftP4, 4);
+            
+            c.rightP1 = MatrixMulti(rotationMatrixY, 4, 4, c.rightP1, 4);
+            c.rightP2 = MatrixMulti(rotationMatrixY, 4, 4, c.rightP2, 4);
+            c.rightP3 = MatrixMulti(rotationMatrixY, 4, 4, c.rightP3, 4);
+            c.rightP4 = MatrixMulti(rotationMatrixY, 4, 4, c.rightP4, 4);
+        }
+        if (axis==3)
+        {
+            c.topP1 = MatrixMulti(rotationMatrixZ,4,4,c.topP1,4);
+            c.topP2 = MatrixMulti(rotationMatrixZ,4,4,c.topP2,4);
+            c.topP3 = MatrixMulti(rotationMatrixZ,4,4,c.topP3,4);
+            c.topP4 = MatrixMulti(rotationMatrixZ,4,4,c.topP4,4);
+            
+            c.bottomP1 = MatrixMulti(rotationMatrixZ, 4, 4, c.bottomP1, 4);
+            c.bottomP2 = MatrixMulti(rotationMatrixZ, 4, 4, c.bottomP2, 4);
+            c.bottomP3 = MatrixMulti(rotationMatrixZ, 4, 4, c.bottomP3, 4);
+            c.bottomP4 = MatrixMulti(rotationMatrixZ, 4, 4, c.bottomP4, 4);
+            
+            c.frontP1 = MatrixMulti(rotationMatrixZ, 4, 4, c.frontP1, 4);
+            c.frontP2 = MatrixMulti(rotationMatrixZ, 4, 4, c.frontP2, 4);
+            c.frontP3 = MatrixMulti(rotationMatrixZ, 4, 4, c.frontP3, 4);
+            c.frontP4 = MatrixMulti(rotationMatrixZ, 4, 4, c.frontP4, 4);
+            
+            c.backP1 = MatrixMulti(rotationMatrixZ, 4, 4, c.backP1, 4);
+            c.backP2 = MatrixMulti(rotationMatrixZ, 4, 4, c.backP2, 4);
+            c.backP3 = MatrixMulti(rotationMatrixZ, 4, 4, c.backP3, 4);
+            c.backP4 = MatrixMulti(rotationMatrixZ, 4, 4, c.backP4, 4);
+            
+            c.leftP1 = MatrixMulti(rotationMatrixZ, 4, 4, c.leftP1, 4);
+            c.leftP2 = MatrixMulti(rotationMatrixZ, 4, 4, c.leftP2, 4);
+            c.leftP3 = MatrixMulti(rotationMatrixZ, 4, 4, c.leftP3, 4);
+            c.leftP4 = MatrixMulti(rotationMatrixZ, 4, 4, c.leftP4, 4);
+            
+            c.rightP1 = MatrixMulti(rotationMatrixZ, 4, 4, c.rightP1, 4);
+            c.rightP2 = MatrixMulti(rotationMatrixZ, 4, 4, c.rightP2, 4);
+            c.rightP3 = MatrixMulti(rotationMatrixZ, 4, 4, c.rightP3, 4);
+            c.rightP4 = MatrixMulti(rotationMatrixZ, 4, 4, c.rightP4, 4);
+        }
+    }
+    
+}
  
 /* Initialize OpenGL Graphics */
 void initGL() {
@@ -251,13 +424,20 @@ void display() {
 
    // Render a color-cube consisting of 6 quads with different colors
    glLoadIdentity();                 // Reset the model-view matrix
-   glTranslatef(0.0f, 0.0f, -8.0f);  // Move right and into the screen
+   glTranslatef(0.0f, 0.0f, -12.0f);  // Move right and into the screen
 
     CubeTransform ct;
     setDefault(ct);
+    Rotation(ct, 2, 40);
     draw(ct);
+    Rotation(ct, 2, -40);
     
     Translation(ct, 2, 1, 2);
+    Rotation(ct, 1, 60);
+    draw(ct);
+    Rotation(ct, 1, -60);
+    Scaling(ct, 0.5, 0.5, 0.5);
+    Rotation(ct, 3, 20);
     draw(ct);
    glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
