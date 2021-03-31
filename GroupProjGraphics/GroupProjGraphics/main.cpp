@@ -1,13 +1,11 @@
 #ifdef __APPLE__
 #include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
 #endif
+
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
-#else
-#include <GL/gl.h>
 #endif // use as needed for your system
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -259,7 +257,7 @@ void display() {
     setDefault(ct);
     draw(ct);
     
-    Translation(ct, 2, -1, 2);
+    Translation(ct, 2, 1, 2);
     draw(ct);
    glutSwapBuffers();  // Swap the front and back frame buffers (double buffering)
 }
