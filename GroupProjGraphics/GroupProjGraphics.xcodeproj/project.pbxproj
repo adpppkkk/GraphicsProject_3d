@@ -29,6 +29,7 @@
 		8979D81A260CC34200CC7927 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8979D823260CC34F00CC7927 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		8979D825260CC35400CC7927 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		8979D82A260CD2D500CC7927 /* macCompile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = macCompile.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 		8979D819260CC34200CC7927 /* GroupProjGraphics */ = {
 			isa = PBXGroup;
 			children = (
+				8979D82A260CD2D500CC7927 /* macCompile.sh */,
 				8979D81A260CC34200CC7927 /* main.cpp */,
 			);
 			path = GroupProjGraphics;
