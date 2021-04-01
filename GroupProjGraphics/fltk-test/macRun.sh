@@ -1,0 +1,1 @@
+fltk-config --use-gl --compile main.cpp && ./main
