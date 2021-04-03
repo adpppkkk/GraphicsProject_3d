@@ -83,32 +83,32 @@ struct CubeTransform {
     double *topP2=new double[4];
     double *topP3=new double[4];
     double *topP4=new double[4];
-    
+
     double *bottomP1=new double[4];
     double *bottomP2=new double[4];
     double *bottomP3=new double[4];
     double *bottomP4=new double[4];
-    
+
     double *frontP1=new double[4];
     double *frontP2=new double[4];
     double *frontP3=new double[4];
     double *frontP4=new double[4];
-    
+
     double *backP1=new double[4];
     double *backP2=new double[4];
     double *backP3=new double[4];
     double *backP4=new double[4];
-    
+
     double *leftP1=new double[4];
     double *leftP2=new double[4];
     double *leftP3=new double[4];
     double *leftP4=new double[4];
-    
+
     double *rightP1=new double[4];
     double *rightP2=new double[4];
     double *rightP3=new double[4];
     double *rightP4=new double[4];
-    
+
 };
 
 
