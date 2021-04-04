@@ -3,6 +3,7 @@
 #include <FL/gl.h>
 #include <FL/Fl_Button.H>
 #include <iostream>
+#include "TransformOperation.h"
 
 using namespace std;
 
@@ -200,11 +201,16 @@ void initGL() {
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Nice perspective corrections
 }
 
+void testCallback(Fl_Widget*, void*)
+{
+    cout << "doing callback" << endl;
+}
+
 int main() {
     Fl_Window win(1000, 640);
     MyGlWindow mygl(210, 10, win.w()-220, win.h()-20);
-    Fl_Button* translateButton = new Fl_Button(20, 20, 150, 50, "Translate");
-    Fl_Button* rotateButton = new Fl_Button(20, 90, 150, 50, "Rotate");
+    Fl_Button* resetButton = new Fl_Button(20, 20, 150, 50, "Reset");
+    resetButton->callback(testCallback);
     win.end();
     win.resizable(mygl);
     win.show(); // displays window

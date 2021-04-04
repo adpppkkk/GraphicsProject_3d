@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "new": "cpp",
+        "queue": "cpp",
+        "string": "cpp"
+    },
+    "cSpell.words": [
+        "stod"
+    ]
+}
