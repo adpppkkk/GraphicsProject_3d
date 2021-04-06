@@ -20,7 +20,7 @@ class TransformOperation {
             z_axis_offset = z;
         }
 
-        void doTransformation(CubeTransform ct)
+        void doTransformation(CubeTransform& ct)
         {
             if(transformName == "Translate")
             {

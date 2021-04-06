@@ -3,9 +3,13 @@
         "iostream": "cpp",
         "new": "cpp",
         "queue": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp",
+        "iomanip": "cpp",
+        "ostream": "cpp"
     },
     "cSpell.words": [
-        "stod"
+        "stod",
+        "stoi"
     ]
 }

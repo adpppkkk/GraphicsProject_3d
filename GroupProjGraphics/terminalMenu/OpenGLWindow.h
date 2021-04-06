@@ -10,6 +10,8 @@
 #include <fstream>
 #include <stdio.h>
 #include <math.h>
+#include <sstream>
+#include <iomanip>
 #define PI 3.14159265
 
 using namespace std;
@@ -79,6 +81,149 @@ struct Cube {
 
 //cube after transform stores here
 class CubeTransform {
+    private:
+        string arrayToString(double* array, bool pretty)
+        {
+            stringstream output;
+            if(pretty)
+            {
+                output << "[";
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if(pretty)
+                {
+                    output << setprecision(1) << array[i];
+                    if(i < 3)
+                    {
+                        output << ", ";
+                    }
+                    else
+                    {
+                        output << "]";
+                    }
+                }
+                else
+                {
+                    output << setprecision(6) << array[i];
+                    if(i < 3)
+                    {
+                        output << " ";
+                    }
+                }
+            }
+            return output.str();
+        }
+
+        // 1 = top, 2 = bottom, 3 = front, 4 = back, 5 = left, 6 = right
+        string sideToString(int side, bool pretty)
+        {
+            string output = "";
+            if(side == 1)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(topP1, pretty) + "\n";
+                    output += arrayToString(topP2, pretty) + "\n";
+                    output += arrayToString(topP3, pretty) + "\n";
+                    output += arrayToString(topP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(topP1, pretty) + " ";
+                    output += arrayToString(topP2, pretty) + " ";
+                    output += arrayToString(topP3, pretty) + " ";
+                    output += arrayToString(topP4, pretty) + " ";
+                }
+            }
+            else if(side == 2)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(bottomP1, pretty) + "\n";
+                    output += arrayToString(bottomP2, pretty) + "\n";
+                    output += arrayToString(bottomP3, pretty) + "\n";
+                    output += arrayToString(bottomP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(bottomP1, pretty) + " ";
+                    output += arrayToString(bottomP2, pretty) + " ";
+                    output += arrayToString(bottomP3, pretty) + " ";
+                    output += arrayToString(bottomP4, pretty) + " ";
+                }
+            }
+            else if(side == 3)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(frontP1, pretty) + "\n";
+                    output += arrayToString(frontP2, pretty) + "\n";
+                    output += arrayToString(frontP3, pretty) + "\n";
+                    output += arrayToString(frontP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(frontP1, pretty) + " ";
+                    output += arrayToString(frontP2, pretty) + " ";
+                    output += arrayToString(frontP3, pretty) + " ";
+                    output += arrayToString(frontP4, pretty) + " ";
+                }
+            }
+            else if(side == 4)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(backP1, pretty) + "\n";
+                    output += arrayToString(backP2, pretty) + "\n";
+                    output += arrayToString(backP3, pretty) + "\n";
+                    output += arrayToString(backP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(backP1, pretty) + " ";
+                    output += arrayToString(backP2, pretty) + " ";
+                    output += arrayToString(backP3, pretty) + " ";
+                    output += arrayToString(backP4, pretty) + " ";
+                }
+            }
+            else if(side == 5)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(leftP1, pretty) + "\n";
+                    output += arrayToString(leftP2, pretty) + "\n";
+                    output += arrayToString(leftP3, pretty) + "\n";
+                    output += arrayToString(leftP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(leftP1, pretty) + " ";
+                    output += arrayToString(leftP2, pretty) + " ";
+                    output += arrayToString(leftP3, pretty) + " ";
+                    output += arrayToString(leftP4, pretty) + " ";
+                }
+            }
+            else if(side == 6)
+            {
+                if(pretty)
+                {
+                    output += arrayToString(rightP1, pretty) + "\n";
+                    output += arrayToString(rightP2, pretty) + "\n";
+                    output += arrayToString(rightP3, pretty) + "\n";
+                    output += arrayToString(rightP4, pretty) + "\n";
+                }
+                else
+                {
+                    output += arrayToString(rightP1, pretty) + " ";
+                    output += arrayToString(rightP2, pretty) + " ";
+                    output += arrayToString(rightP3, pretty) + " ";
+                    output += arrayToString(rightP4, pretty) + " ";
+                }
+            }
+            return output;
+        }
+
     public:
         double *topP1 = new double[4];
         double *topP2=new double[4];
@@ -110,26 +255,27 @@ class CubeTransform {
         double *rightP3=new double[4];
         double *rightP4=new double[4];
 
-        string toString()
+        string toString(bool pretty)
         {
-            string ImCrying = "";
-            for(int i = 0; i < 4; i++)
+            string output = "";
+            for (int i = 1; i <= 6; i++)
             {
-                ImCrying += to_string(topP1[i]) + " " + to_string(topP2[i]) + " " + to_string(topP3[i]) + " " + to_string(topP4[i]) + " " + to_string(bottomP1[i]) + " " + to_string(bottomP2[i]) + " " + to_string(bottomP3[i]) + " " + to_string(bottomP4[i]) + " " + to_string(frontP1[i]) + " " + to_string(frontP2[i]) + " " + to_string(frontP3[i]) + " " + to_string(frontP4[i]) + " " + to_string(backP1[i]) + " " + to_string(backP2[i]) + " " + to_string(backP3[i]) + " " + to_string(backP4[i]) + " " + to_string(leftP1[i]) + " " + to_string(leftP2[i]) + " " + to_string(leftP3[i]) + " " + to_string(leftP4[i]) + " " + to_string(rightP1[i]) + " " + to_string(rightP2[i]) + " " + to_string(rightP3[i]) + " " + to_string(rightP4[i]);
+                if(pretty)
+                {
+                    output += sideToString(i, pretty) + "\n\n";
+                }
+                else
+                {
+                    output += sideToString(i, pretty);
+                }
             }
-            return ImCrying;
+            return output;
         }
 };
 
 CubeTransform ct;
 
-void printCTValue()
-{
-    cout << ct.backP1[2];
-}
-
 void setDefault(CubeTransform & ct){
-    cout << "Start of setDefault function " << ct.backP1[0] << endl;
     Cube c;
     for(int i = 0; i < 4; i++)
     {
@@ -163,7 +309,6 @@ void setDefault(CubeTransform & ct){
         ct.rightP3[i] = c.rightP3[i];
         ct.rightP4[i] = c.rightP4[i];
     }
-    cout << "End of setDefault function " << ct.backP1[0] << endl;
 }
 
 void Translation(CubeTransform & c,double x,double y,double z)
@@ -387,7 +532,8 @@ void initGL() {
 }
 
 void draw(CubeTransform & c){
-    cout << "Start of draw function " << c.backP1[0] << endl;
+    //cout << "Drawing cube:" << endl;
+    //cout << c.toString(true) << endl;
     glBegin(GL_QUADS);
     // Top face (y = 1.0f)
     glColor3f(0.0f, 1.0f, 0.0f);     // Green

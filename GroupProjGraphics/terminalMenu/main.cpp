@@ -17,10 +17,12 @@ void showQueue(queue<TransformOperation> queueParm)
 {
     cout << endl;
     queue<TransformOperation> q = queueParm;
+    int i = 1;
     while (!q.empty()) {
         TransformOperation transOp = q.front();
-        cout << transOp.toString() << endl;
+        cout << i << ") " << transOp.toString() << endl;
         q.pop();
+        i++;
     }
     cout << endl;
 }
@@ -37,67 +39,93 @@ void doQueue(queue<TransformOperation> queueParm)
     cout << endl;
 }
 
+void removeElementFromQueue(queue<TransformOperation>& queueParm, int index)
+{
+    queue<TransformOperation> temp;
+    int i = 1;
+    while (!queueParm.empty()) {
+        TransformOperation transOp = queueParm.front();
+        queueParm.pop();
+        if(i != index)
+        {
+            cout << "pushing " << transOp.transformName << endl;
+            temp.push(transOp);
+        }
+        else
+        {
+            cout << "Not pushing " << i << endl;
+        }
+        i++;
+    }
+    queueParm = temp;
+    cout << endl;
+}
+
+void copyArray(double* source, double* destination)
+{
+    for(int i = 0; i < 4; i++)
+    {
+        destination[i] = source[i];
+    }
+}
+
 int main(int argc, char** argv)
 {
-    cout << "before reading passed in values " << ct.backP1[2] << endl;
     if(argc > 1)
     {
         for(int i = 2; i < argc - 2; i += 4)
         {
             double newValues[4] = {stod(argv[i]), stod(argv[i + 1]), stod(argv[i + 2]), stod(argv[i + 3])};
             if(i / 4 == 0)
-                ct.topP1 = newValues;
+                copyArray(newValues, ct.topP1);
             else if(i / 4 == 1)
-                ct.topP2 = newValues;
+                copyArray(newValues, ct.topP2);
             else if(i / 4 == 2)
-                ct.topP3 = newValues;
+                copyArray(newValues, ct.topP3);
             else if(i / 4 == 3)
-                ct.topP4 = newValues;
+                copyArray(newValues, ct.topP4);
             else if(i / 4 == 4)
-                ct.bottomP1 = newValues;
+                copyArray(newValues, ct.bottomP1);
             else if(i / 4 == 5)
-                ct.bottomP2 = newValues;
+                copyArray(newValues, ct.bottomP2);
             else if(i / 4 == 6)
-                ct.bottomP3 = newValues;
+                copyArray(newValues, ct.bottomP3);
             else if(i / 4 == 7)
-                ct.bottomP4 = newValues;
+                copyArray(newValues, ct.bottomP4);
             else if(i / 4 == 8)
-                ct.frontP1 = newValues;
+                copyArray(newValues, ct.frontP1);
             else if(i / 4 == 9)
-                ct.frontP2 = newValues;
+                copyArray(newValues, ct.frontP2);
             else if(i / 4 == 10)
-                ct.frontP3 = newValues;
+                copyArray(newValues, ct.frontP3);
             else if(i / 4 == 11)
-                ct.frontP4 = newValues;
+                copyArray(newValues, ct.frontP4);
             else if(i / 4 == 12)
-                ct.backP1 = newValues;
+                copyArray(newValues, ct.backP1);
             else if(i / 4 == 13)
-                ct.backP2 = newValues;
+                copyArray(newValues, ct.backP2);
             else if(i / 4 == 14)
-                ct.backP3 = newValues;
+                copyArray(newValues, ct.backP3);
             else if(i / 4 == 15)
-                ct.backP4 = newValues;
-            else if(i / 4 == 8)
-                ct.leftP1 = newValues;
-            else if(i / 4 == 9)
-                ct.leftP2 = newValues;
-            else if(i / 4 == 10)
-                ct.leftP3 = newValues;
-            else if(i / 4 == 11)
-                ct.leftP4 = newValues;
-            else if(i / 4 == 12)
-                ct.rightP1 = newValues;
-            else if(i / 4 == 13)
-                ct.rightP2 = newValues;
-            else if(i / 4 == 14)
-                ct.rightP3 = newValues;
-            else if(i / 4 == 15)
-                ct.rightP4 = newValues;
+                copyArray(newValues, ct.backP4);
+            else if(i / 4 == 16)
+                copyArray(newValues, ct.leftP1);
+            else if(i / 4 == 17)
+                copyArray(newValues, ct.leftP2);
+            else if(i / 4 == 18)
+                copyArray(newValues, ct.leftP3);
+            else if(i / 4 == 19)
+                copyArray(newValues, ct.leftP4);
+            else if(i / 4 == 20)
+                copyArray(newValues, ct.rightP1);
+            else if(i / 4 == 21)
+                copyArray(newValues, ct.rightP2);
+            else if(i / 4 == 22)
+                copyArray(newValues, ct.rightP3);
+            else if(i / 4 == 23)
+                copyArray(newValues, ct.rightP4);
         }
 
-        cout << "after reading in passed in values " << ct.backP1[2] << endl;
-        cout << "values in h file after reading passed in values ";
-        printCTValue();
         cout << endl;
 
         glutInit(&argc, argv);            // Initialize GLUT
@@ -112,9 +140,7 @@ int main(int argc, char** argv)
     }
     else if(argc == 1)
     {
-        cout << "Before setDefault call " << ct.backP1[0] << endl;
         setDefault(ct);
-        cout << "After setDefault call " << ct.backP1[0] << endl;
         queue<TransformOperation> operations;
 
         bool showMenu = true;
@@ -123,13 +149,15 @@ int main(int argc, char** argv)
             string selectedOption = "";
 
             cout << endl;
-            cout << "********************" << endl;
-            cout << "* 1) Translate     *" << endl;
-            cout << "* 2) Scale         *" << endl;
-            cout << "* 3) Rotate        *" << endl;
-            cout << "* 4) Draw model    *" << endl;
-            cout << "* 5) Quit          *" << endl;
-            cout << "********************" << endl;
+            cout << "*****************************************" << endl;
+            cout << "* 1) Translate                          *" << endl;
+            cout << "* 2) Scale                              *" << endl;
+            cout << "* 3) Rotate                             *" << endl;
+            cout << "* 4) Show Transformation Queue          *" << endl;
+            cout << "* 5) Remove Transformation              *" << endl;
+            cout << "* 6) Draw model (resets transformation) *" << endl;
+            cout << "* 7) Quit                               *" << endl;
+            cout << "*****************************************" << endl;
             cout << "> ";
             cin >> selectedOption;
 
@@ -137,7 +165,7 @@ int main(int argc, char** argv)
             double yOffset;
             double zOffset;
 
-            if(selectedOption == "1" || selectedOption == "2" || selectedOption == "3")
+            if(selectedOption == "1" || selectedOption == "2")
             {
                 string x = "";
                 string y = "";
@@ -154,6 +182,27 @@ int main(int argc, char** argv)
                 yOffset = stod(y);
 
                 cout << "Z-Axis offset?" << endl;
+                cout << "> ";
+                cin >> z;
+                zOffset = stod(z);
+            }
+            else if(selectedOption == "3")
+            {
+                string x = "";
+                string y = "";
+                string z = "";
+
+                cout << "X-Axis Rotation (degrees)?" << endl;
+                cout << "> ";
+                cin >> x;
+                xOffset = stod(x);
+
+                cout << "Y-Axis Rotation (degrees)?" << endl;
+                cout << "> ";
+                cin >> y;
+                yOffset = stod(y);
+
+                cout << "Z-Axis Rotation (degrees)?" << endl;
                 cout << "> ";
                 cin >> z;
                 zOffset = stod(z);
@@ -177,17 +226,30 @@ int main(int argc, char** argv)
                 operation.transformName = "Rotate";
                 operations.push(operation);
             }
-            else if(selectedOption == "4")
+            else if (selectedOption == "4")
+            {
+                showQueue(operations);
+            }
+            else if (selectedOption == "5")
+            {
+                showQueue(operations);
+                cout << "Which transformation to remove? (placement)" << endl;
+                cout << "> ";
+                string removeQueuePlacement = "";
+                cin >> removeQueuePlacement;
+                removeElementFromQueue(operations, stoi(removeQueuePlacement));
+            }
+            else if(selectedOption == "6")
             {
                 showQueue(operations);
                 doQueue(operations);
                 cout << "To reset, quit the OpenGL window" << endl;
-                string ct_values = ct.toString();
+                string ct_values = ct.toString(false);
                 system(("./main.out draw " + ct_values).c_str());
                 showMenu = false;
                 system("./main.out");
             }
-            else if(selectedOption == "5")
+            else if(selectedOption == "7")
             {
                 showMenu = false;
                 exit(0);
